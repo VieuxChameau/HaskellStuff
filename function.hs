@@ -1,3 +1,16 @@
+response :: Integer
+response = 42
+
+list :: [Integer]
+list = [1,2,3,4,5]
+
+message :: String
+message = "Hello World !"
+
+
+number :: Maybe Integer
+number = Just 123
+
 -- load from ghci :l function.hs
 perimetreCercle r = 2 * pi * r
 
@@ -14,31 +27,79 @@ if x > 5 then 42 else 0
 
 signe x = if x >= 0 then "Positif" else "Negatif"
 
--- Pattern matching
-letter x = case x of
-	0 -> "Zero"
-	1 -> "One"
-	_ -> "Unknow" -- _ use for all
-
--- Ex
 
 myMin a b = if a < b then a else b
 myMax a b = if a > b then a else b
 
 
-response :: Integer
-response = 42
 
-list :: [Integer]
-list = [1,2,3,4,5]
+-- Motif
 
-message :: String
-message = "Hello World !"
+increasing :: (Ord a) => [a] -> Bool
+increasing [] = True
+increasing [x] = True
+increasing (x:y:ys) = x <= y && increasing  (y:ys)
 
 
-number :: Maybe Integer
-number = Just 123
+increasing :: (Ord a) => [a] -> Bool
+increasing (x:y:ys) = x <= y && increasing  (y:ys)
+increasing _ = True
 
-{-
-Getting the type of something in ghci :t
--}
+-- No existing function for tripple
+first :: (a, b, c) -> a
+first (x, _, _) = x
+
+second :: (a, b, c) -> b
+second (_, y, _) = y
+
+third :: (a, b, c) -> c
+third (_, _, z) = z
+
+
+head' :: [a] -> a
+head' [] = error "Can't call head on an empty list, dummy!"
+head' (x:_) = x
+
+length' :: (Num b) => [a] -> b
+length' [] = 0
+length' (_:xs) = 1 + length' xs
+
+-- gardes
+
+bmiTell :: (RealFloat a) => a -> String
+bmiTell bmi
+    | bmi <= 18.5 = "You're underweight, you emo, you!"
+    | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
+    | otherwise   = "You're a whale, congratulations!"
+
+bmiTell :: (RealFloat a) => a -> a -> String
+bmiTell weight height
+    | bmi <= skinny = "You're underweight, you emo, you!"
+    | bmi <= normal = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | bmi <= fat    = "You're fat! Lose some weight, fatty!"
+    | otherwise     = "You're a whale, congratulations!"
+    where bmi = weight / height ^ 2
+          skinny = 18.5
+          normal = 25.0
+          fat = 30.0
+
+max' :: (Ord a) => a -> a -> a
+max' a b
+    | a > b     = a
+    | otherwise = b
+
+-- Expression case
+letter x = case x of
+	0 -> "Zero"
+	1 -> "One"
+	_ -> "Unknow" -- _ use for all
+
+
+
+quicksort :: (Num a) => [a] -> a
+quicksort [] = []
+quicksort [x] = [x]
+quicksort (x:xs) = let smallerSorted = quicksort [a | a <- xs, a <= x]
+        biggerSorted = quicksort [a | a <- xs, a > x]
+	in  smallerSorted ++ [x] ++ biggerSorted
