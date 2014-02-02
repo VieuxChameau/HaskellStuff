@@ -1,11 +1,12 @@
 -- load from ghci :l function.hs
 perimetreCercle r = 2 * pi * r
 
+hypotenuse a b = sqrt (a ^ 2 + b ^ 2)
 
-{-
-Multi line comment
-Comment continue	
--}
+identifyCamel humps = if humps == 1
+                        then "Dromedary"
+                        else "Bactrian"
+
 
 let x = 7
 x /= 5 -- Return true /= is different
