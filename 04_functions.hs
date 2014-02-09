@@ -33,7 +33,7 @@ myMax a b = if a > b then a else b
 
 
 
--- Motif
+-- Motif aka Pattern matching
 
 increasing :: (Ord a) => [a] -> Bool
 increasing [] = True
@@ -64,7 +64,7 @@ length' :: (Num b) => [a] -> b
 length' [] = 0
 length' (_:xs) = 1 + length' xs
 
--- gardes
+-- Guards
 
 bmiTell :: (RealFloat a) => a -> String
 bmiTell bmi
@@ -72,6 +72,25 @@ bmiTell bmi
     | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
     | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
     | otherwise   = "You're a whale, congratulations!"
+
+
+max' :: (Ord a) => a -> a -> a
+max' a b
+    | a > b     = a
+    | otherwise = b
+
+
+-- Where
+
+bmiTell :: (RealFloat a) => a -> a -> String
+bmiTell weight height
+    | weight / height ^ 2 <= 18.5 = "You're underweight, you emo, you!"
+    | weight / height ^ 2 <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+    | weight / height ^ 2 <= 30.0 = "You're fat! Lose some weight, fatty!"
+    | otherwise                   = "You're a whale, congratulations!"
+
+
+-- Equivalent with where, the variable define in the where are visible in the whole function scope
 
 bmiTell :: (RealFloat a) => a -> a -> String
 bmiTell weight height
@@ -84,17 +103,23 @@ bmiTell weight height
           normal = 25.0
           fat = 30.0
 
-max' :: (Ord a) => a -> a -> a
-max' a b
-    | a > b     = a
-    | otherwise = b
+-- let it be
+cylinder :: (RealFloat a) => a -> a -> a
+cylinder r h =
+    let sideArea = 2 * pi * r * h
+        topArea = pi * r ^2
+    in  sideArea + 2 * topArea
 
 -- Expression case
+letter :: a -> a
 letter x = case x of
 	0 -> "Zero"
 	1 -> "One"
 	_ -> "Unknow" -- _ use for all
 
+head' :: [a] -> a
+head' xs = case xs of [] -> error "No head for empty lists!"
+                      (x:_) -> x
 
 
 quicksort :: (Num a) => [a] -> a

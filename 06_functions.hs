@@ -51,7 +51,20 @@ map (+1) [1..10]
 
 zipWith (\a b -> (a * 30 + 3) / b) [5,4,3,2,1] [1,2,3,4,5]
 
+-- fold functions reduce the size of the list to one
 -- foldl for left fold (pli a gauche) start from the left of the list
 -- fold take a binary function the initial accumulator
 
 foldl (+) 0 [5,3,6] --  ((0 + 5) + 3) + 6)
+
+-- $
+
+sum (map sqrt [1..130])
+-- same as
+sum $ map sqrt [1..130]
+
+
+-- Function composition math : (f&g)(x) = f(g(x))
+map (\x -> negate (abs x)) [5,-3,-6,7,-3,2,-19,24]
+-- with composition
+map (negate . abs) [5,-3,-6,7,-3,2,-19,24]
