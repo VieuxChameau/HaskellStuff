@@ -1,5 +1,5 @@
 {-
-    Typeclasses are set of Types (equivalent of java interface)
+    Typeclasses are set of Types (equivalent of java interface) define a behavior
     Types are set of values (equivalent of java class)
 
 
